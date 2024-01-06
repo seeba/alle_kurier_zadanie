@@ -3,10 +3,16 @@
 namespace App\Core\User\Domain\Repository;
 
 use App\Core\User\Domain\Exception\UserNotFoundException;
+use App\Core\User\Domain\Status\UserStatus;
 use App\Core\User\Domain\User;
 
 interface UserRepositoryInterface
 {
+    /**
+     * @return User[]
+     */
+    public function getUsersByStatus(UserStatus $status): array;
+    
     /**
      * @throws UserNotFoundException
      */

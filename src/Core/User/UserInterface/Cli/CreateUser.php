@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Invoice\UserInterface\Cli;
+namespace App\Core\User\UserInterface\Cli;
 
 use App\Core\User\Application\Command\CreateUser\CreateUserCommand;
 use Symfony\Component\Console\Attribute\AsCommand;

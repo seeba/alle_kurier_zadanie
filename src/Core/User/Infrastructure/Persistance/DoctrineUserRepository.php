@@ -2,8 +2,10 @@
 
 namespace App\Core\User\Infrastructure\Persistance;
 
+use App\Core\User\Domain\Exception\InactiveUsersNotFoundException;
 use App\Core\User\Domain\Exception\UserNotFoundException;
 use App\Core\User\Domain\Repository\UserRepositoryInterface;
+use App\Core\User\Domain\Status\UserStatus;
 use App\Core\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
@@ -35,6 +37,23 @@ class DoctrineUserRepository implements UserRepositoryInterface
         }
 
         return $user;
+    }
+
+    public function getUsersByStatus(UserStatus $status): array
+    {
+        $users = $this->entityManager->createQueryBuilder()
+            ->select('u')
+            ->from(User::class, 'u')
+            ->where('u.active = :active')
+            ->setParameter('active', $status)
+            ->getQuery()
+            ->getResult();
+
+        if (null === $users) {
+            throw new InactiveUsersNotFoundException('Nie znaleziono użytkowników o statusie :'.$status);
+        }
+
+        return $users;
     }
 
     public function save(User $user): void
