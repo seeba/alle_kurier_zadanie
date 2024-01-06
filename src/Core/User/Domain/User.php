@@ -3,6 +3,7 @@
 namespace App\Core\User\Domain;
 
 use App\Common\EventManager\EventsCollectorTrait;
+use App\Core\User\Domain\Status\UserStatus;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,15 +27,15 @@ class User
     private string $email;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false}, nullable = false)
+     * @ORM\Column(type="string", enumType="\App\Core\User\Domain\Status\UserStatus", nullable = false)
      */
-    private bool $is_active;
+    private UserStatus $active;
 
     public function __construct(string $email)
     {
         $this->id = null;
         $this->email = $email;
-        $this->is_active = false;
+        $this->active = UserStatus::INACTIVE;
     }
 
     public function getEmail(): string
@@ -42,8 +43,8 @@ class User
         return $this->email;
     }
 
-    public function isActive(): bool 
+    public function active(): UserStatus
     {
-        return $this->is_active;
+        return $this->active;
     }
 }
