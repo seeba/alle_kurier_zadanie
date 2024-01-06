@@ -7,29 +7,22 @@ use App\Core\User\Domain\Event\UserCreatedEvent;
 use App\Core\User\Domain\Status\UserStatus;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="users")
- */
+#[ORM\Entity]
+#[ORM\Table(name: "users")]
 class User
 {
     use EventsCollectorTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer", options={"unsigned"=true}, nullable=false)
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+   
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy:'AUTO')]
+    #[ORM\Column(type: "integer", options: ["unsigned" =>true], nullable: false)]
     private ?int $id;
 
-    /**
-     * @ORM\Column(type="string", length=300, nullable=false)
-     */
+    #[ORM\Column(type: "string", length: 300, nullable: false)]
     private string $email;
 
-    /**
-     * @ORM\Column(type="string", enumType="\App\Core\User\Domain\Status\UserStatus", nullable = false)
-     */
+    #[ORM\Column(type: "string", enumType: "\App\Core\User\Domain\Status\UserStatus", nullable: false)]
     private UserStatus $active;
 
     public function __construct(string $email)
