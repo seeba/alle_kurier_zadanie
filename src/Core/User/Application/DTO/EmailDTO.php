@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\User\Domain\ValueObject;
+namespace App\Core\User\Application\DTO;
 
-class Email
+class EmailDTO
 {
     public function __construct(
         public readonly string $email

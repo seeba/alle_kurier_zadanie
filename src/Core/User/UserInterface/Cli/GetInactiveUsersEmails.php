@@ -3,7 +3,7 @@
 namespace App\Core\User\UserInterface\Cli;
 
 use App\Common\Bus\QueryBusInterface;
-use App\Core\User\Domain\ValueObject\Email;
+use App\Core\User\Application\DTO\EmailDTO;
 use App\Core\User\Application\Query\GetUsersEmailsByStatus\GetUsersEmailsByStatusQuery;
 use App\Core\User\Domain\Status\UserStatus;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'app:user:get-inactive-by-email',
+    name: 'app:user:get-inactive-email',
     description: 'Pobieranie adresów email użytkowników nieaktywnych'
 )]
 class GetInactiveUsersEmails extends Command
@@ -29,7 +29,7 @@ class GetInactiveUsersEmails extends Command
             UserStatus::INACTIVE
         ));
 
-        /** @var Email $email */
+        /** @var EmailDTO $email */
         foreach ($emails as $email) {
             $output->writeln($email->email);
         }
