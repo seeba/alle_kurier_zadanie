@@ -44,8 +44,8 @@ class DoctrineUserRepository implements UserRepositoryInterface
         $users = $this->entityManager->createQueryBuilder()
             ->select('u')
             ->from(User::class, 'u')
-            ->where('u.active = :active')
-            ->setParameter('active', $status)
+            ->where('u.status = :status')
+            ->setParameter('status', $status)
             ->getQuery()
             ->getResult();
 

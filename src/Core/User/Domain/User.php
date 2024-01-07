@@ -23,13 +23,13 @@ class User
     private string $email;
 
     #[ORM\Column(type: "string", enumType: "\App\Core\User\Domain\Status\UserStatus", nullable: false)]
-    private UserStatus $active;
+    private UserStatus $status;
 
     public function __construct(string $email)
     {
         $this->id = null;
         $this->email = $email;
-        $this->active = UserStatus::INACTIVE;
+        $this->status = UserStatus::INACTIVE;
 
         $this->record(new UserCreatedEvent($this));
     }
@@ -39,8 +39,13 @@ class User
         return $this->email;
     }
 
-    public function active(): UserStatus
+    public function getStatus(): UserStatus
     {
-        return $this->active;
+        return $this->status;
+    }
+
+    public function setStatus(UserStatus $status): void
+    {
+        $this->status;
     }
 }
