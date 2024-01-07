@@ -9,6 +9,7 @@ use App\Core\Invoice\Domain\Invoice;
 use App\Core\Invoice\Domain\Repository\InvoiceRepositoryInterface;
 use App\Core\User\Domain\Exception\UserNotFoundException;
 use App\Core\User\Domain\Repository\UserRepositoryInterface;
+use App\Core\User\Domain\Status\UserStatus;
 use App\Core\User\Domain\User;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -73,5 +74,12 @@ class CreateInvoiceHandlerTest extends TestCase
         $this->expectException(InvoiceException::class);
 
         $this->handler->__invoke((new CreateInvoiceCommand('test@test.pl', -5)));
+    }
+
+    public function test_handle_user_is_not_active(): void
+    {
+        $this->expectException(InvoiceException::class);
+        
+        $this->handler->__invoke((new CreateInvoiceCommand('test@test.pl', 12500)));
     }
 }
