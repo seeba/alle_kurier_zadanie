@@ -7,6 +7,7 @@ use App\Core\Invoice\Domain\Event\InvoiceCanceledEvent;
 use App\Core\Invoice\Domain\Event\InvoiceCreatedEvent;
 use App\Core\Invoice\Domain\Exception\InvoiceException;
 use App\Core\Invoice\Domain\Status\InvoiceStatus;
+use App\Core\User\Domain\Status\UserStatus;
 use App\Core\User\Domain\User;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,7 +42,7 @@ class Invoice
             throw new InvoiceException('Kwota faktury musi być większa od 0');
         }
 
-        if ($user->getStatus() == 'inactive') {
+        if ($user->getStatus() == UserStatus::INACTIVE) {
             throw new InvoiceException('Nie można utworzyć faktury dla nieaktywnego użytkownika');
         }
 
